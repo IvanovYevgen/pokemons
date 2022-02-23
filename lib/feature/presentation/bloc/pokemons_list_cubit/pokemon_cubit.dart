@@ -11,12 +11,9 @@ class PokemonCubit extends Cubit<PokemonState> {
 
   PokemonCubit() : super(PokemonEmptyState());
 
-
-
-
   Future<void> fetchUsers() async {
     bool hasConnection = await networkConnection.isConnected();
-    if(hasConnection){
+    if (hasConnection) {
       try {
         emit(PokemonLoadingState());
         final List<PokemonEntity> _loadedList = await getAllPokemons.call();
@@ -24,13 +21,12 @@ class PokemonCubit extends Cubit<PokemonState> {
       } catch (_) {
         emit(PokemonErrorState());
       }
-    } else{
-      emit (NoConnectionState());
+    } else {
+      emit(NoConnectionState());
     }
   }
 
   Future<void> buildDialog() async {
     emit(NoConnectionStateInform());
   }
-
 }

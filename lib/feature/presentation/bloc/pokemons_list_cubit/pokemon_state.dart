@@ -8,6 +8,7 @@ class PokemonLoadingState extends PokemonState {}
 
 class PokemonLoadedState extends PokemonState {
   List<PokemonEntity> loadedPokemons;
+
   PokemonLoadedState({required this.loadedPokemons});
 }
 

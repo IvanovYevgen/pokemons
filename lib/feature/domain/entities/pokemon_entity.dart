@@ -4,7 +4,7 @@ class PokemonEntity extends Equatable {
   final String? name;
   final String? url;
 
-  PokemonEntity({this.name, this.url});
+  const PokemonEntity({this.name, this.url});
 
   @override
   List<Object?> get props => [name, url];

@@ -1,13 +1,13 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemons/feature/presentation/bloc/pokemons_list_cubit/pokemon_cubit.dart';
 import 'package:pokemons/feature/presentation/bloc/pokemons_list_cubit/pokemon_state.dart';
+import 'package:pokemons/feature/resources/app_strings.dart';
 import 'package:pokemons/locator_service.dart';
 
 class UserList extends StatefulWidget {
+  const UserList({Key? key}) : super(key: key);
+
   @override
   State<UserList> createState() => _UserListState();
 }
@@ -22,7 +22,7 @@ class _UserListState extends State<UserList> {
         if (state is PokemonEmptyState) {
           return const Center(
             child: Text(
-              'No data received. Press button "Load"',
+              AppStrings.noData,
               style: TextStyle(fontSize: 20.0),
             ),
           );
@@ -32,10 +32,8 @@ class _UserListState extends State<UserList> {
           return const Center(child: CircularProgressIndicator());
         }
         if (state is PokemonLoadedState) {
-          final List<String> items =
-              List<String>.generate(10000, (index) => 'Items $index');
           return ListView.builder(
-            itemCount: items.length,
+            itemCount: state.loadedPokemons.length,
             itemBuilder: (context, index) => Container(
               color: index % 2 == 0 ? Colors.white : Colors.blue[50],
               child: ListTile(
@@ -62,12 +60,12 @@ class _UserListState extends State<UserList> {
           });
         }
         if (state is NoConnectionStateInform) {
-          return Container(child: Text('No Connection'));
+          return const Text(AppStrings.noConnection);
         }
         if (state is PokemonErrorState) {
           return const Center(
             child: Text(
-              'Error fetching users',
+              AppStrings.errorFetching,
               style: TextStyle(fontSize: 20.0),
             ),
           );
@@ -82,16 +80,14 @@ class _UserListState extends State<UserList> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text('Message'),
-              content: Text("You have not Internet Connection"),
+              title: const Text(AppStrings.message),
+              content: const Text(AppStrings.youHaveNotConnection),
               actions: <Widget>[
                 ElevatedButton(
-                    child: Text("Ok"),
+                    child: const Text(AppStrings.ok),
                     onPressed: () {
                       cubit.buildDialog();
                       Navigator.of(context).pop(true);
-                      // Navigator.of(context, rootNavigator: true).pop();
-                      // Navigator.of(context).pop();
                     })
               ]);
         });

@@ -12,4 +12,3 @@ class GetAllPokemons extends UseCase {
     return await pokemonRepository.getAllPokemons();
   }
 }
-

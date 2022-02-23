@@ -7,7 +7,6 @@ import 'package:pokemons/feature/domain/usecases/get_all_pokemons.dart';
 import 'package:pokemons/feature/presentation/bloc/pokemons_list_cubit/pokemon_cubit.dart';
 import 'package:http/http.dart' as http;
 
-
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -20,13 +19,11 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetAllPokemons(sl()));
 
   sl.registerLazySingleton<PokemonRepository>(
-    () => PokemonRepositoryImpl(
-      remoteDataSource: sl()
-    ),
+    () => PokemonRepositoryImpl(remoteDataSource: sl()),
   );
 
   sl.registerLazySingleton<PokemonRemoteDataSource>(
-        () => PokemonRemoteDataSourceImpl(
+    () => PokemonRemoteDataSourceImpl(
       client: sl(),
     ),
   );
